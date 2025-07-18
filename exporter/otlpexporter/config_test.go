@@ -69,7 +69,7 @@ func TestUnmarshalConfig(t *testing.T) {
 					"header1":                "234",
 					"another":                "somevalue",
 				},
-				Endpoint:    "1.2.3.4:1234",
+				Endpoint:    "unix:///tmp/otel-collector.sock",
 				Compression: "gzip",
 				TLS: configtls.ClientConfig{
 					Config: configtls.Config{

@@ -30,8 +30,13 @@ type Config struct {
 
 func (c *Config) Validate() error {
 	endpoint := c.sanitizedEndpoint()
-	if endpoint == "" {
+
+	switch {
+	case endpoint == "":
 		return errors.New(`requires a non-empty "endpoint"`)
+	// no port validation needed in case of unix domain socket
+	case strings.HasPrefix(endpoint, "unix:"):
+		return nil
 	}
 
 	// Validate that the port is in the address
