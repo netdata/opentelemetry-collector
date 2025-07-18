@@ -1,0 +1,26 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: /tmp/otel-collector.sock
+        transport: unix
+
+
+exporters:
+  # Option 1: Print to stdout
+  debug:
+    verbosity: detailed
+    
+  # Option 2: Write to file
+  file:
+    path: /tmp/otel-metrics.json
+    format: json
+
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [debug, file]
